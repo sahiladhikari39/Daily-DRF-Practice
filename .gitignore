@@ -1,2 +1,61 @@
-/db.sqlite3
-/venv
+# Python
+__pycache__/*
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Django static/media files
+/static/
+/media/
+
+# Collected static files
+staticfiles/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+*.cover
+*.py,cover
+
+# Mypy
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# Local configuration
+*.local
