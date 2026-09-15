@@ -67,6 +67,35 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelM
 #         return Response(serializer)
 
 
+# class ProductListCreateView(ListModelMixin, CreateModelMixin, GenericAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+
+#     def get(self, request):
+#         return self.list(request)
+
+#     def post(self, request):
+#         return self.create(request)
+
+
+# class ProductUpdateView(UpdateModelMixin, GenericAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+
+#     def put(self, request, pk):
+#         return self.update(request, pk=pk)
+
+#     def patch(self, request, pk):
+#         return self.partial_update(request, pk=pk)
+
+# class ProductDeleteView(DestroyModelMixin, GenericAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+
+#     def delete(self, request, pk):
+#         return self.destroy(request, pk=pk)
+
+
 class ProductListCreateView(ListModelMixin, CreateModelMixin, GenericAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -78,19 +107,18 @@ class ProductListCreateView(ListModelMixin, CreateModelMixin, GenericAPIView):
         return self.create(request)
 
 
-class ProductUpdateView(UpdateModelMixin, GenericAPIView):
+class ProductDetailView(ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get(self, request, pk):
+        return self.list(request, pk=pk)
 
     def put(self, request, pk):
         return self.update(request, pk=pk)
 
     def patch(self, request, pk):
         return self.partial_update(request, pk=pk)
-
-class ProductDeleteView(DestroyModelMixin, GenericAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
 
     def delete(self, request, pk):
         return self.destroy(request, pk=pk)
