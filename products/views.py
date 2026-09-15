@@ -13,14 +13,35 @@ from rest_framework import status
 #     return Response(serializer.data)
 
 
-class Product_View(GenericAPIView):
+class Product_List(GenericAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     def get(self, request):
         product = self.get_queryset()
-        serializer = self.get_serializer(product, many =True)
+        serializer = self.get_serializer(product, many=True)
         return Response(serializer.data)
+    
+    def put(self, request, pk):
+        product = self.get_object()
+        serializer = self.get_serializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk):
+        product = self.get_object()
+        serializer = self.get_serializer(product, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        product = self.get_object()
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class Product_create(GenericAPIView):
@@ -43,3 +64,5 @@ class Product_Detail_view(GenericAPIView):
         product = self.get_object()
         serializer = self.get_serializer(product)
         return Response(serializer)
+
+
