@@ -4,7 +4,8 @@ from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
-from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 # Create your views here.
 
 # @api_view(['GET'])
@@ -96,29 +97,37 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelM
 #         return self.destroy(request, pk=pk)
 
 
-class ProductListCreateView(ListModelMixin, CreateModelMixin, GenericAPIView):
+# class ProductListCreateView(ListModelMixin, CreateModelMixin, GenericAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+
+#     def get(self, request):
+#         return self.list(request)
+
+#     def post(self, request):
+#         return self.create(request)
+
+
+# class ProductDetailView(RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+
+#     def get(self, request, pk): #for retrieving data via pk
+#         return self.retrieve(request, pk=pk)
+
+#     def put(self, request, pk):
+#         return self.update(request, pk=pk)
+
+#     def patch(self, request, pk):
+#         return self.partial_update(request, pk=pk)
+
+#     def delete(self, request, pk):
+#         return self.destroy(request, pk=pk)
+
+class ProductListCreateView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    def get(self, request):
-        return self.list(request)
-
-    def post(self, request):
-        return self.create(request)
-
-
-class ProductDetailView(ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+class ProductRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-    def get(self, request, pk):
-        return self.list(request, pk=pk)
-
-    def put(self, request, pk):
-        return self.update(request, pk=pk)
-
-    def patch(self, request, pk):
-        return self.partial_update(request, pk=pk)
-
-    def delete(self, request, pk):
-        return self.destroy(request, pk=pk)
