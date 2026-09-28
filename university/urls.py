@@ -1,8 +1,11 @@
 from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import CourseListView, CourseDetailListView, TeacherListView, TeacherDetailview
 
 
 urlpatterns = [
+    path('login/', TokenObtainPairView.as_view()),
+    path('token/refresh/', TokenRefreshView.as_view()),
     path('courses/', CourseListView.as_view()),
     path('courses/<int:pk>', CourseDetailListView.as_view()),
     # path('courses/', course_view),

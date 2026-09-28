@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -47,7 +48,8 @@ class CourseListView(GenericAPIView):
      queryset = Course.objects.all()
      serializer_class = CourseSerializer
 
-     authentication_classes = [TokenAuthentication]
+     # authentication_classes = [TokenAuthentication]
+     authentication_classes = [JWTAuthentication]
      permission_classes = [IsAuthenticated]
 
      def get(self, request):
@@ -60,7 +62,7 @@ class CourseDetailListView(GenericAPIView):
      queryset = Course.objects.all()
      serializer_class = CourseSerializer
 
-     authentication_classes = [TokenAuthentication]
+     authentication_classes = [JWTAuthentication]
      permission_classes = [IsAuthenticated]
 
      def get(self, request, pk):
