@@ -1,4 +1,6 @@
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -44,6 +46,10 @@ from .models import Course, Teacher
 class CourseListView(GenericAPIView):
      queryset = Course.objects.all()
      serializer_class = CourseSerializer
+
+     authentication_classes = [TokenAuthentication]
+     permission_classes = [IsAuthenticated]
+
      def get(self, request):
           course = self.get_queryset()
           serializer = self.get_serializer(course, many=True)
@@ -53,6 +59,10 @@ class CourseListView(GenericAPIView):
 class CourseDetailListView(GenericAPIView):
      queryset = Course.objects.all()
      serializer_class = CourseSerializer
+
+     authentication_classes = [TokenAuthentication]
+     permission_classes = [IsAuthenticated]
+
      def get(self, request, pk):
           course = self.get_object()
           serializer = self.get_serializer(course)
@@ -98,15 +108,23 @@ class CourseDetailListView(GenericAPIView):
 class TeacherListView(GenericAPIView):
      queryset = Teacher.objects.all()
      serializer_class = TeacherSerializer
+
+     authentication_classes = [SessionAuthentication]
+     permission_classes = [IsAuthenticated]
+
      def get(self, request):
           teachers = self.get_queryset()
           serializer = self.get_serializer(teachers, many=True)
           return Response(serializer.data)
 
 
-class TeacherDetailListview(GenericAPIView):
+class TeacherDetailview(GenericAPIView):
      queryset = Teacher.objects.all()
      serializer_class = TeacherSerializer
+
+     authentication_classes = [SessionAuthentication]
+     permission_classes = [IsAuthenticated]
+
      def get(self, request, pk):
           course = self.get_object()
           serializer = self.get_serializer(course)
