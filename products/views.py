@@ -6,6 +6,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 # Create your views here.
 
 # @api_view(['GET'])
@@ -124,10 +125,14 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 #     def delete(self, request, pk):
 #         return self.destroy(request, pk=pk)
 
-class ProductListCreateView(ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+# class ProductListCreateView(ListCreateAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
 
-class ProductRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+# class ProductRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+
+class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
